@@ -105,10 +105,6 @@ class SpaceMouse:
         self.product_id = config.product_id
         self.device = hid.device()
 
-        # currently, you may need to run sudo teleop.py to run this (device.open)
-        # we can set rules for the spacemouse device, but currently this does not work!
-        # additionally, whenever you add a new spacemouse device, you will also have to
-        # add rules: they can be found at /etc/udev/rules.d
         self.device.open(self.vendor_id, self.product_id)
 
         print("Manufacturer: %s" % self.device.get_manufacturer_string())
