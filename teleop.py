@@ -266,6 +266,8 @@ else:
         parser = ConfigParser()
         parser.read('../robot.conf')
         ip = parser.get('xArm', 'ip')
+        print("ip: ", ip)
+        print(type(ip))
     except:
         ip = input('Please input the xArm ip address:')
         if not ip:
@@ -281,7 +283,7 @@ class XArmConfig:
     """
     Configuration class for some (not all!) xArm7/control parameters. The important ones are here.
     You can or should change most of these to your liking, potentially with the exception of tcp_maxacc
-    
+
     :config_param tcp_maxacc: TCP (Tool Center Point, i.e., end effector) maximum acceleration
     :config_param position_gain: Increasing this value makes the position gain increase
     :config_param orientation_gain: Increasing this value makes the orientation gain increase
@@ -295,7 +297,7 @@ class XArmConfig:
     alpha: float = 0.5
     control_loop_rate: int = 50
     verbose: bool = True
-    
+
 xarm_cfg = XArmConfig()
 
 arm = XArmAPI(ip)
@@ -349,7 +351,7 @@ ret = arm.set_gripper_enable(True)
 if ret != 0:
     print(f"Error in set_gripper_enable: {ret}")
 
-    
+
 _, initial_pose = arm.get_position(is_radian=False)
 current_position = np.array(initial_pose[:3])
 current_orientation = np.array(initial_pose[3:])
@@ -420,7 +422,7 @@ try:
 
         if verbose:
             print(f"Return value from set_servo_cartesian: {ret}")
-            
+
         if ret != 0:
             print(f"Error in set_servo_cartesian: {ret}")
             err_code, warn_code = arm.get_err_warn_code()
